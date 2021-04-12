@@ -3,21 +3,21 @@ package br.com.zup.pombocorreio.dtos.conta;
 import br.com.zup.pombocorreio.enumerates.Recado;
 import br.com.zup.pombocorreio.models.Conta;
 import br.com.zup.pombocorreio.models.Perfil;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class CadastrarContaDTO {
 
     @NotNull(message = "O campo nomeCompleto não foi informado")
     @NotEmpty(message = "O campo nomeCompleto está vazio")
-    @Length(max = 80, message = "o campo nomecompleto deve ter no máximo 80 caracteres")
+    @Size(max = 80, message = "o campo nomecompleto deve ter no máximo 80 caracteres")
     private String nomeCompleto;
 
     @NotNull(message = "O campo numeroTelefone não foi informado")
     @NotEmpty(message = "O campo numeroTelefone está vazio")
-    @Length(max = 30, message = "O campo numeroTelefone deve ter no máximo 30 caracteres")
+    @Size(max = 30, message = "O campo numeroTelefone deve ter no máximo 30 caracteres")
     private String numeroTelefone;
     private String foto;
     private Recado recado;

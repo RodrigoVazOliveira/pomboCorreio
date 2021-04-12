@@ -17,13 +17,25 @@ public class PerfilService {
         this.perfilRepository = perfilRepository;
     }
 
+    public Perfil gravarNovoPerfil(Perfil perfil) {
+        return perfilRepository.save(perfil);
+    }
+
     public Perfil procurarPerfilPorNumeroTelefone(String numeroTelefone) {
         Optional<Perfil> optionalPerfil = perfilRepository.findByNumeroTelefone(numeroTelefone);
 
         if (optionalPerfil.isEmpty()) {
-            throw new RuntimeException("Um perfil já existe com o núemro de telefone " + numeroTelefone);
+            throw new RuntimeException("Não existe perfil com o núemro de telefone " + numeroTelefone);
         }
 
         return optionalPerfil.get();
+    }
+
+    public Boolean verificarPerfilUnico(String numeroTelefone) {
+        Optional<Perfil> optionalPerfil = perfilRepository.findByNumeroTelefone(numeroTelefone);
+        if (optionalPerfil.isPresent()) {
+            return false;
+        }
+        return true;
     }
 }

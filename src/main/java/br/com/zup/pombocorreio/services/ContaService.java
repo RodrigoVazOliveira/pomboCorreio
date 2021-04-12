@@ -6,6 +6,8 @@ import br.com.zup.pombocorreio.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ContaService {
 
@@ -29,5 +31,15 @@ public class ContaService {
         if (!perfilService.verificarPerfilUnico(perfil.getNumeroTelefone())) {
             throw new RuntimeException("O perfil com o número " + perfil.getNumeroTelefone() + " já existe!");
         }
+    }
+
+    public Conta procurarContaPorNumeroTelefone(String numeroTelefone) {
+        Optional<Conta> optionalConta = contaRepository.findByPerfilNumeroTelefone(numeroTelefone);
+
+        if (optionalConta.isEmpty()) {
+            throw new RuntimeException("Não existe conta com o número de telefone " + numeroTelefone);
+        }
+
+        return optionalConta.get();
     }
 }

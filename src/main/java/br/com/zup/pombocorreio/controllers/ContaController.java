@@ -33,4 +33,16 @@ public class ContaController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public SaidaCadastrarContaDTO procurarContaPorTelefone(@RequestParam(name = "telefone") String telefone) {
+        try {
+            Conta conta = contaService.procurarContaPorNumeroTelefone(telefone);
+            return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
+        }catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.OK, e.getMessage());
+        }
+    }
+
 }

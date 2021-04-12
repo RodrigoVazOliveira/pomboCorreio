@@ -5,8 +5,6 @@ import br.com.zup.pombocorreio.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class ContaService {
 

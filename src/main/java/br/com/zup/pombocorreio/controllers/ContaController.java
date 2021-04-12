@@ -1,0 +1,36 @@
+package br.com.zup.pombocorreio.controllers;
+
+import br.com.zup.pombocorreio.dtos.conta.CadastrarContaDTO;
+import br.com.zup.pombocorreio.dtos.conta.SaidaCadastrarContaDTO;
+import br.com.zup.pombocorreio.models.Conta;
+import br.com.zup.pombocorreio.services.ContaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("contas/")
+public class ContaController {
+
+    private final ContaService contaService;
+
+    @Autowired
+    public ContaController(ContaService contaService) {
+        this.contaService = contaService;
+    }
+
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public SaidaCadastrarContaDTO gravarNovaConta(@RequestBody @Valid CadastrarContaDTO cadastrarContaDTO) {
+        try {
+            Conta conta = contaService.gravarNovaConta(cadastrarContaDTO.converterDtoParaModelo());
+            return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+}

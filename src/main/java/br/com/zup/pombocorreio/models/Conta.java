@@ -22,10 +22,9 @@ public class Conta {
     public Conta() {
     }
 
-    public Conta(Perfil perfil, String senha, List<Contato> contatoes) {
+    public Conta(Perfil perfil, String senha) {
         this.perfil = perfil;
         this.senha = senha;
-        this.contatos = contatoes;
     }
 
     public Long getId() {

@@ -83,7 +83,7 @@ public class SaidaCadastrarContaDTO {
         this.ativo = ativo;
     }
 
-    public SaidaCadastrarContaDTO converterModeloParaDto(Conta conta) {
+    public static SaidaCadastrarContaDTO converterModeloParaDto(Conta conta) {
         SaidaCadastrarContaDTO dto = new SaidaCadastrarContaDTO(
             conta.getId(),
             conta.getPerfil().getNomeCompleto(),

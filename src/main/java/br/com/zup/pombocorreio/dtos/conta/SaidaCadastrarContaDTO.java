@@ -10,20 +10,18 @@ public class SaidaCadastrarContaDTO {
     private String numeroTelefone;
     private String foto;
     private Recado recado;
-    private String senha;
     private Boolean ativo;
 
     public SaidaCadastrarContaDTO() {
     }
 
     public SaidaCadastrarContaDTO(Long id, String nomeCompleto, String numeroTelefone, String foto,
-                                  Recado recado, String senha, Boolean ativo) {
+                                  Recado recado, Boolean ativo) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.numeroTelefone = numeroTelefone;
         this.foto = foto;
         this.recado = recado;
-        this.senha = senha;
         this.ativo = ativo;
     }
 
@@ -67,14 +65,6 @@ public class SaidaCadastrarContaDTO {
         this.recado = recado;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public Boolean getAtivo() {
         return ativo;
     }
@@ -90,7 +80,6 @@ public class SaidaCadastrarContaDTO {
             conta.getPerfil().getNumeroTelefone(),
             conta.getPerfil().getFoto(),
             conta.getPerfil().getRecado(),
-            conta.getSenha(),
             conta.getPerfil().getAtivo()
         );
         return dto;

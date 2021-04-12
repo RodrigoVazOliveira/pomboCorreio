@@ -2,6 +2,7 @@ package br.com.zup.pombocorreio.services;
 
 import br.com.zup.pombocorreio.models.Perfil;
 import br.com.zup.pombocorreio.repositories.PerfilRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,6 +12,7 @@ public class PerfilService {
 
     private final PerfilRepository perfilRepository;
 
+    @Autowired
     public PerfilService(PerfilRepository perfilRepository) {
         this.perfilRepository = perfilRepository;
     }

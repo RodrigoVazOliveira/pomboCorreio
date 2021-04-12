@@ -6,7 +6,6 @@ import br.com.zup.pombocorreio.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -44,7 +43,7 @@ public class ContaService {
         return optionalConta.get();
     }
 
-    public Conta procurarContaPorId(String id) {
+    public Conta procurarContaPorId(Long id) {
         Optional<Conta> optionalConta = contaRepository.findById(id);
 
         if (optionalConta.isEmpty()) {
@@ -52,5 +51,9 @@ public class ContaService {
         }
 
         return optionalConta.get();
+    }
+
+    public Conta atualizarConta(Conta conta) {
+        return contaRepository.save(conta);
     }
 }

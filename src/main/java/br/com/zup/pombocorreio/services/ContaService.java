@@ -6,6 +6,7 @@ import br.com.zup.pombocorreio.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,16 @@ public class ContaService {
 
         if (optionalConta.isEmpty()) {
             throw new RuntimeException("Não existe conta com o número de telefone " + numeroTelefone);
+        }
+
+        return optionalConta.get();
+    }
+
+    public Conta procurarContaPorId(String id) {
+        Optional<Conta> optionalConta = contaRepository.findById(id);
+
+        if (optionalConta.isEmpty()) {
+            throw new RuntimeException("Não existe conta com o id " + id);
         }
 
         return optionalConta.get();

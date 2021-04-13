@@ -1,11 +1,13 @@
 package br.com.zup.pombocorreio.services;
 
 import br.com.zup.pombocorreio.models.Conta;
+import br.com.zup.pombocorreio.models.Contato;
 import br.com.zup.pombocorreio.models.Perfil;
 import br.com.zup.pombocorreio.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -64,5 +66,10 @@ public class ContaService {
 
     public Conta atualizarConta(Conta conta) {
         return contaRepository.save(conta);
+    }
+
+    public Iterable<Contato> obterTodosContatosDeUmaConta(Long id) {
+        Conta conta = procurarContaPorId(id);
+        return conta.getContatos();
     }
 }

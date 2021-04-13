@@ -45,4 +45,15 @@ public class PerfilService {
 
         return optionalPerfil.get();
     }
+
+    public Perfil atualizarPerfilCompleto(Perfil novoPerfil) {
+        Perfil perfilAntigo = procurarPerfilPorId(novoPerfil.getId());
+        perfilAntigo.setNomeCompleto(novoPerfil.getNomeCompleto());
+        perfilAntigo.setNumeroTelefone(novoPerfil.getNumeroTelefone());
+        perfilAntigo.setFoto(novoPerfil.getFoto());
+        perfilAntigo.setRecado(novoPerfil.getRecado());
+        perfilAntigo.setAtivo(novoPerfil.getAtivo());
+
+        return perfilRepository.save(perfilAntigo);
+    }
 }

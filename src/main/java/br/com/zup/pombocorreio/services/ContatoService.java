@@ -64,5 +64,4 @@ public class ContatoService {
         Contato contato = procurarContatoPorId(idContato);
         contatoRepository.delete(contato);
     }
-
 }

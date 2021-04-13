@@ -48,4 +48,15 @@ public class ContatoController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @DeleteMapping("{idConta}/{idContato}/")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removerContato(@PathVariable(name = "idConta") Long idConta
+            , @PathVariable(name = "idContato") Long idContato) {
+        try {
+            contatoService.removerContato(idConta, idContato);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }

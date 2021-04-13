@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContatoService {
@@ -46,5 +47,21 @@ public class ContatoService {
 
     public Iterable<Contato> obterTodosContatosDeUmaContaPorId(Long id) {
         return contaService.obterTodosContatosDeUmaConta(id);
+    }
+
+    public Contato procurarContatoPorId(Long id) {
+        Optional<Contato> optionalContato = contatoRepository.findById(id);
+
+        if (optionalContato.isEmpty()) {
+            throw new RuntimeException("Não existe contato com o id " + id);
+        }
+
+        return optionalContato.get();
+    }
+
+    public void removerContato(Long idConta, Long idContato) {
+        contaService.removerContatoDaConta(idConta, idContato);
+        Contato contato = procurarContatoPorId(idContato);
+        contatoRepository.delete(contato);
     }
 }

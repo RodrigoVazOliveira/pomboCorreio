@@ -20,7 +20,6 @@ public class CadastrarContatoDTO {
     private Boolean bloqueio;
 
     @NotNull(message = "O campo idConta não foi informado")
-    @NotEmpty(message = "O campo idConta está vazio")
     private Long idConta;
 
     public CadastrarContatoDTO() {

@@ -7,6 +7,8 @@ import br.com.zup.pombocorreio.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,5 +72,20 @@ public class ContaService {
     public Iterable<Contato> obterTodosContatosDeUmaConta(Long id) {
         Conta conta = procurarContaPorId(id);
         return conta.getContatos();
+    }
+
+    public void removerContatoDaConta(Long idConta, Long idContato) {
+        Conta conta = procurarContaPorId(idConta);
+        conta.setContatos(removerContatoDaLista(idContato, conta.getContatos()));
+        atualizarConta(conta);
+    }
+
+    private List<Contato> removerContatoDaLista(Long idContato, List<Contato> contatos) {
+        for (Contato contato : contatos) {
+            if (contato.getId() == idContato) {
+                contatos.remove(contato);
+            }
+        }
+        return contatos;
     }
 }

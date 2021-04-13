@@ -42,4 +42,18 @@ public class ContaService {
 
         return optionalConta.get();
     }
+
+    public Conta procurarContaPorId(Long id) {
+        Optional<Conta> optionalConta = contaRepository.findById(id);
+
+        if (optionalConta.isEmpty()) {
+            throw new RuntimeException("Não existe conta com o id " + id);
+        }
+
+        return optionalConta.get();
+    }
+
+    public Conta atualizarConta(Conta conta) {
+        return contaRepository.save(conta);
+    }
 }

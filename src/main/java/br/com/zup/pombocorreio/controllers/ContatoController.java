@@ -1,13 +1,13 @@
 package br.com.zup.pombocorreio.controllers;
 
 import br.com.zup.pombocorreio.dtos.contato.CadastrarContatoDTO;
+import br.com.zup.pombocorreio.dtos.contato.SaidaCadastrarContatoDTO;
 import br.com.zup.pombocorreio.models.Conta;
 import br.com.zup.pombocorreio.models.Contato;
 import br.com.zup.pombocorreio.services.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -22,11 +22,15 @@ public class ContatoController {
         this.contatoService = contatoService;
     }
 
-    public SaidaCadastroContato gravarNovoContato(@RequestBody @Valid CadastrarContatoDTO cadastrarContatoDTO) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public SaidaCadastrarContatoDTO gravarNovoContato(@RequestBody @Valid CadastrarContatoDTO cadastrarContatoDTO) {
         Conta conta = new Conta();
         conta.setId(cadastrarContatoDTO.getIdConta());
         Contato contato = contatoService.gravarNovoContato(
                 cadastrarContatoDTO.converterDtoParaModelo(), conta
         );
+
+        return SaidaCadastrarContatoDTO.converterModeloParaDto(contato, conta.getId());
     }
 }

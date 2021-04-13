@@ -47,7 +47,7 @@ public class PerfilService {
     }
 
     public Perfil atualizarPerfilCompleto(Perfil novoPerfil) {
-        Perfil perfilAntigo = procurarPerfilPorId(novoPerfil.getId());
+        Perfil perfilAntigo = procurarPerfilPorNumeroTelefone(novoPerfil.getNumeroTelefone());
         perfilAntigo.setNomeCompleto(novoPerfil.getNomeCompleto());
         perfilAntigo.setNumeroTelefone(novoPerfil.getNumeroTelefone());
         perfilAntigo.setFoto(novoPerfil.getFoto());

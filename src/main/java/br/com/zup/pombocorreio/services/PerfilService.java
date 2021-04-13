@@ -33,7 +33,7 @@ public class PerfilService {
 
     public Boolean verificarPerfilUnico(String numeroTelefone) {
         Optional<Perfil> optionalPerfil = perfilRepository.findByNumeroTelefone(numeroTelefone);
-        if (optionalPerfil.isPresent()) {
+        if (optionalPerfil.isEmpty()) {
             return false;
         }
         return true;

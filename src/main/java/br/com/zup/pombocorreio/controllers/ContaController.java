@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.security.PublicKey;
 
 @RestController
 @RequestMapping("contas/")
@@ -48,11 +47,23 @@ public class ContaController {
     }
 
     @PutMapping("{id}/")
+    @ResponseStatus(HttpStatus.CREATED)
     public SaidaCadastrarContaDTO atualizarContaCompleta(@PathVariable Long id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
         try {
             atualizarContaDTO.setId(id);
             Conta conta = contaService.atualizarConta(atualizarContaDTO.converterDtoParaModelo());
             return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @PatchMapping("{id}/")
+    public SaidaCadastrarContaDTO ativarOuDesativarConta(@PathVariable(name = "id") Long idConta) {
+        try {
+            Conta conta  = new Conta();
+            conta.setId(id);
+            return SaidaCadastrarContaDTO.converterModeloParaDto(contaService.ativarOuDesativarConta(conta));
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

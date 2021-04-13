@@ -34,7 +34,10 @@ public class ContaService {
 
     private Perfil obterPerfilDaConta(Perfil perfil) {
         if (perfilService.verificarPerfilUnico(perfil.getNumeroTelefone())) {
-            return perfilService.procurarPerfilPorNumeroTelefone(perfil.getNumeroTelefone());
+            Perfil perfilAntigo = perfilService.procurarPerfilPorNumeroTelefone(perfil.getNumeroTelefone());
+            perfilAntigo.setFoto(perfil.getFoto());
+            perfilAntigo.setRecado(perfil.getRecado());
+            return perfilAntigo;
         }
         return perfilService.gravarNovoPerfil(perfil);
     }

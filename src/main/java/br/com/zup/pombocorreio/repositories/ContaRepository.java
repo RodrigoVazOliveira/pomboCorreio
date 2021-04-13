@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface ContaRepository extends CrudRepository<Conta, Long> {
     Optional<Conta> findByPerfilNumeroTelefone(String numeroTelefone);
+    Boolean existsByPerfilNumeroTelefone(String numeroTelefone);
 }

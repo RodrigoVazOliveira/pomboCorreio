@@ -18,6 +18,9 @@ public class CadastrarContatoDTO {
     @Size(max = 30, message = "O campo numeroTelefone deve ter no máximo 30 caracteres")
     private String numeroTelefone;
     private Boolean bloqueio;
+
+    @NotNull(message = "O campo idConta não foi informado")
+    @NotEmpty(message = "O campo idConta está vazio")
     private Long idConta;
 
     public CadastrarContatoDTO() {

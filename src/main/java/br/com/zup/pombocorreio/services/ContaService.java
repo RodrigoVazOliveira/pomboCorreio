@@ -22,15 +22,24 @@ public class ContaService {
 
     public Conta gravarNovaConta(Conta conta) {
         verificarPerfilExiste(conta.getPerfil());
-        Perfil novoPerfil = perfilService.gravarNovoPerfil(conta.getPerfil());
-        conta.setPerfil(novoPerfil);
+        conta.setPerfil(obterPerfilDaConta(conta.getPerfil()));
         return contaRepository.save(conta);
     }
 
     private void verificarPerfilExiste(Perfil perfil) {
-        if (!perfilService.verificarPerfilUnico(perfil.getNumeroTelefone())) {
-            throw new RuntimeException("O perfil com o número " + perfil.getNumeroTelefone() + " já existe!");
+        if (contaRepository.existsByPerfilNumeroTelefone(perfil.getNumeroTelefone())) {
+            throw new RuntimeException("Uma conta com o número " + perfil.getNumeroTelefone() + " já existe!");
         }
+    }
+
+    private Perfil obterPerfilDaConta(Perfil perfil) {
+        if (perfilService.verificarPerfilUnico(perfil.getNumeroTelefone())) {
+            Perfil perfilAntigo = perfilService.procurarPerfilPorNumeroTelefone(perfil.getNumeroTelefone());
+            perfilAntigo.setFoto(perfil.getFoto());
+            perfilAntigo.setRecado(perfil.getRecado());
+            return perfilAntigo;
+        }
+        return perfilService.gravarNovoPerfil(perfil);
     }
 
     public Conta procurarContaPorNumeroTelefone(String numeroTelefone) {

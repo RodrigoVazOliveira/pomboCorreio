@@ -35,4 +35,14 @@ public class PerfilService {
         Optional<Perfil> optionalPerfil = perfilRepository.findByNumeroTelefone(numeroTelefone);
         return optionalPerfil.isPresent();
     }
+
+    public Perfil procurarPerfilPorId(Long id) {
+        Optional<Perfil> optionalPerfil = perfilRepository.findById(id);
+
+        if (optionalPerfil.isEmpty()) {
+            throw new RuntimeException("Não foi encontrado um perfil com o id " + id);
+        }
+
+        return optionalPerfil.get();
+    }
 }

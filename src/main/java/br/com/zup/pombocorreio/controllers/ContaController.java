@@ -1,5 +1,6 @@
 package br.com.zup.pombocorreio.controllers;
 
+import br.com.zup.pombocorreio.dtos.conta.AtualizarContaDTO;
 import br.com.zup.pombocorreio.dtos.conta.CadastrarContaDTO;
 import br.com.zup.pombocorreio.dtos.conta.SaidaCadastrarContaDTO;
 import br.com.zup.pombocorreio.models.Conta;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.security.PublicKey;
 
 @RestController
 @RequestMapping("contas/")
@@ -42,6 +44,17 @@ public class ContaController {
             return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
         }catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.OK, e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}/")
+    public SaidaCadastrarContaDTO atualizarContaCompleta(@PathVariable Long id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
+        try {
+            atualizarContaDTO.setId(id);
+            Conta conta = contaService.atualizarConta(atualizarContaDTO.converterDtoParaModelo());
+            return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 

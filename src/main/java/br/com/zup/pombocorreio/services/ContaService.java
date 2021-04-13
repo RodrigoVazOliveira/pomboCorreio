@@ -84,6 +84,7 @@ public class ContaService {
         for (Contato contato : contatos) {
             if (contato.getId() == idContato) {
                 contatos.remove(contato);
+                return contatos;
             }
         }
         return contatos;

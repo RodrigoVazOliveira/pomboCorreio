@@ -56,4 +56,16 @@ public class PerfilService {
 
         return perfilRepository.save(perfilAntigo);
     }
+
+    public Perfil ativarOuDesativarPerfil(Perfil perfil) {
+        Perfil perfilAntigo = procurarPerfilPorId(perfil.getId());
+
+        if (perfilAntigo.getAtivo().equals(true)) {
+            perfilAntigo.setAtivo(false);
+            return perfilRepository.save(perfilAntigo);
+        } else {
+            perfilAntigo.setAtivo(true);
+            return perfilRepository.save(perfilAntigo);
+        }
+    }
 }

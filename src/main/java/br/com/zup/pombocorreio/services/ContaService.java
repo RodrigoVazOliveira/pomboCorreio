@@ -91,4 +91,10 @@ public class ContaService {
         }
         return contatos;
     }
+
+    public Conta ativarOuDesativarConta(Conta conta) {
+        Conta contaAntiga = procurarContaPorId(conta.getId());
+        contaAntiga.setPerfil(perfilService.ativarOuDesativarPerfil(contaAntiga.getPerfil()));
+        return contaAntiga;
+    }
 }

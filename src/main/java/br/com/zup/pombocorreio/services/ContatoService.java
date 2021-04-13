@@ -7,6 +7,8 @@ import br.com.zup.pombocorreio.repositories.ContatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContatoService {
 
@@ -40,5 +42,9 @@ public class ContatoService {
         Conta conta = contaService.procurarContaPorId(id);
         conta.getContatos().add(novoContato);
         contaService.atualizarConta(conta);
+    }
+
+    public Iterable<Contato> obterTodosContatosDeUmaContaPorId(Long id) {
+        return contaService.obterTodosContatosDeUmaConta(id);
     }
 }

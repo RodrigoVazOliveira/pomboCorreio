@@ -1,5 +1,6 @@
 package br.com.zup.pombocorreio.services;
 
+import br.com.zup.pombocorreio.exceptions.perfil.PerfilNaoExisteExcecao;
 import br.com.zup.pombocorreio.models.Perfil;
 import br.com.zup.pombocorreio.repositories.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class PerfilService {
         Optional<Perfil> optionalPerfil = perfilRepository.findByNumeroTelefone(numeroTelefone);
 
         if (optionalPerfil.isEmpty()) {
-            throw new RuntimeException("Não existe perfil com o núemro de telefone " + numeroTelefone);
+            throw new PerfilNaoExisteExcecao("Não existe perfil com o núemro de telefone " + numeroTelefone);
         }
 
         return optionalPerfil.get();
@@ -40,7 +41,7 @@ public class PerfilService {
         Optional<Perfil> optionalPerfil = perfilRepository.findById(id);
 
         if (optionalPerfil.isEmpty()) {
-            throw new RuntimeException("Não foi encontrado um perfil com o id " + id);
+            throw new PerfilNaoExisteExcecao("Não foi encontrado um perfil com o id " + id);
         }
 
         return optionalPerfil.get();

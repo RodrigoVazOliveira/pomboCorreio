@@ -1,5 +1,6 @@
 package br.com.zup.pombocorreio.services;
 
+import br.com.zup.pombocorreio.exceptions.conversacao.ConversacaoNaoExisteExcecao;
 import br.com.zup.pombocorreio.models.Conta;
 import br.com.zup.pombocorreio.models.Contato;
 import br.com.zup.pombocorreio.models.Conversacao;
@@ -44,7 +45,7 @@ public class ConversacaoService {
         Optional<Conversacao> optionalConversacao = conversacaoRepository.findByContaAndContato(conta, contato);
 
         if (optionalConversacao.isEmpty()) {
-            throw new RuntimeException("Nenhuma conversa foi encontrar com a conta e contato informado!");
+            throw new ConversacaoNaoExisteExcecao("Nenhuma conversa foi encontrar com a conta e contato informado!");
         }
 
         return optionalConversacao.get();
@@ -59,7 +60,7 @@ public class ConversacaoService {
         Optional<Conversacao> optionalConversacao = conversacaoRepository.findById(id);
 
         if (optionalConversacao.isEmpty()) {
-            throw new RuntimeException("Não existe uma conversa como id " + id);
+            throw new ConversacaoNaoExisteExcecao("Não existe uma conversa como id " + id);
         }
 
         return optionalConversacao.get();

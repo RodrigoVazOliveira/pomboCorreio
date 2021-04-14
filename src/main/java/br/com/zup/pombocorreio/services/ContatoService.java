@@ -1,5 +1,6 @@
 package br.com.zup.pombocorreio.services;
 
+import br.com.zup.pombocorreio.exceptions.contato.ContatoNaoExisteExcecao;
 import br.com.zup.pombocorreio.models.Conta;
 import br.com.zup.pombocorreio.models.Contato;
 import br.com.zup.pombocorreio.models.Perfil;
@@ -52,7 +53,7 @@ public class ContatoService {
         Optional<Contato> optionalContato = contatoRepository.findById(id);
 
         if (optionalContato.isEmpty()) {
-            throw new RuntimeException("Não existe contato com o id " + id);
+            throw new ContatoNaoExisteExcecao("Não existe contato com o id " + id);
         }
 
         return optionalContato.get();

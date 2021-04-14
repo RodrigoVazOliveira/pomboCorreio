@@ -9,7 +9,6 @@ import br.com.zup.pombocorreio.services.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -27,46 +26,30 @@ public class ContatoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public SaidaCadastrarContatoDTO gravarNovoContato(@RequestBody @Valid CadastrarContatoDTO cadastrarContatoDTO) {
-        try {
-            Conta conta = new Conta();
-            conta.setId(cadastrarContatoDTO.getIdConta());
-            Contato contato = contatoService.gravarNovoContato(cadastrarContatoDTO.converterDtoParaModelo(), conta);
-            return SaidaCadastrarContatoDTO.converterModeloParaDto(contato, conta.getId());
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        Conta conta = new Conta();
+        conta.setId(cadastrarContatoDTO.getIdConta());
+        Contato contato = contatoService.gravarNovoContato(cadastrarContatoDTO.converterDtoParaModelo(), conta);
+        return SaidaCadastrarContatoDTO.converterModeloParaDto(contato, conta.getId());
     }
 
     @GetMapping("{id}/")
     @ResponseStatus(HttpStatus.CREATED)
     public Iterable<SaidaContatoDTO> obterContatosDeUmaContaPorId(@PathVariable Long id) {
-        try {
-            return SaidaContatoDTO.converterModeloparaListaDeDto(
-                    contatoService.obterTodosContatosDeUmaContaPorId(id)
-            );
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        return SaidaContatoDTO.converterModeloparaListaDeDto(
+                contatoService.obterTodosContatosDeUmaContaPorId(id)
+        );
     }
 
     @DeleteMapping("{idConta}/{idContato}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removerContato(@PathVariable(name = "idConta") Long idConta
             , @PathVariable(name = "idContato") Long idContato) {
-        try {
-            contatoService.removerContato(idConta, idContato);
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        contatoService.removerContato(idConta, idContato);
     }
 
     @PatchMapping("{id}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void bloquearOuDesbloquearContato(@PathVariable Long id) {
-        try {
-            contatoService.bloquearOuDesbloquearContato(id);
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        contatoService.bloquearOuDesbloquearContato(id);
     }
 }

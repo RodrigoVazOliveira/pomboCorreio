@@ -59,4 +59,14 @@ public class ContatoController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @PatchMapping("{id}/")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void bloquearOuDesbloquearContato(@PathVariable Long id) {
+        try {
+            contatoService.bloquearOuDesbloquearContato(id);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }

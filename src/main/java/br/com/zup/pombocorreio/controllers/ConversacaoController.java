@@ -48,4 +48,6 @@ public class ConversacaoController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    public
 }

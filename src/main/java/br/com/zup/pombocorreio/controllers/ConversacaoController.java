@@ -7,6 +7,7 @@ import br.com.zup.pombocorreio.services.ConversacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -26,9 +27,13 @@ public class ConversacaoController {
     public SaidaNovaConversacaoDTO iniciarNovaConversacao(@RequestBody
                                                           @Valid
                                                           IniciarConversacaoDTO iniciarConversacaoDTO) {
-        Conversacao conversacao = conversacaoService.gravarNovaConversacao(
-                iniciarConversacaoDTO.converterDtoParaModelo()
-        );
-        return SaidaNovaConversacaoDTO.converterModeloParaDto(conversacao);
+        try {
+            Conversacao conversacao = conversacaoService.gravarNovaConversacao(
+                    iniciarConversacaoDTO.converterDtoParaModelo()
+            );
+            return SaidaNovaConversacaoDTO.converterModeloParaDto(conversacao);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }

@@ -50,6 +50,6 @@ public class IniciarConversacaoDTO {
             null
         );
 
-        return conversacao; 
+        return conversacao;
     }
 }

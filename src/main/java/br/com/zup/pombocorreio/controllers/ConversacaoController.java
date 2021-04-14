@@ -15,4 +15,6 @@ public class ConversacaoController {
     public ConversacaoController(ConversacaoService conversacaoService) {
         this.conversacaoService = conversacaoService;
     }
+
+
 }

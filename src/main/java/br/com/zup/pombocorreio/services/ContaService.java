@@ -1,5 +1,7 @@
 package br.com.zup.pombocorreio.services;
 
+import br.com.zup.pombocorreio.exceptions.conta.ContaJaExisteExcecao;
+import br.com.zup.pombocorreio.exceptions.conta.ContaNaoExisteExcecao;
 import br.com.zup.pombocorreio.models.Conta;
 import br.com.zup.pombocorreio.models.Contato;
 import br.com.zup.pombocorreio.models.Perfil;
@@ -30,7 +32,7 @@ public class ContaService {
 
     private void verificarPerfilExiste(Perfil perfil) {
         if (contaRepository.existsByPerfilNumeroTelefone(perfil.getNumeroTelefone())) {
-            throw new RuntimeException("Uma conta com o número " + perfil.getNumeroTelefone() + " já existe!");
+            throw new ContaJaExisteExcecao("Uma conta com o número " + perfil.getNumeroTelefone() + " já existe!");
         }
     }
 
@@ -48,7 +50,7 @@ public class ContaService {
         Optional<Conta> optionalConta = contaRepository.findByPerfilNumeroTelefone(numeroTelefone);
 
         if (optionalConta.isEmpty()) {
-            throw new RuntimeException("Não existe conta com o número de telefone " + numeroTelefone);
+            throw new ContaNaoExisteExcecao("Não existe conta com o número de telefone " + numeroTelefone);
         }
 
         return optionalConta.get();
@@ -58,7 +60,7 @@ public class ContaService {
         Optional<Conta> optionalConta = contaRepository.findById(id);
 
         if (optionalConta.isEmpty()) {
-            throw new RuntimeException("Não existe conta com o id " + id);
+            throw new ContaNaoExisteExcecao("Não existe conta com o id " + id);
         }
 
         return optionalConta.get();

@@ -24,10 +24,13 @@ public class ConversacaoService {
     }
 
     public Conversacao gravarNovaConversacao(Conversacao conversacao) {
-        Conta conta = contaService.procurarContaPorId(conversacao.getConta().getId());
-        Contato contato = contatoService.procurarContatoPorId(conversacao.getContato().getId());
-        conversacao.setConta(conta);
-        conversacao.setContato(contato);
+        conversacao.setConta(contaService.procurarContaPorId(conversacao.getConta().getId()));
+        conversacao.setContato(contatoService.procurarContatoPorId(conversacao.getContato().getId()));
+
+        if (conversacaoRepository.existsByContaAndContato(conversacao.getConta(), conversacao.getContato())) {
+            return procurarConversacaoPorContaEContato(conversacao.getConta(), conversacao.getContato());
+        }
+
         return conversacaoRepository.save(conversacao);
     }
 

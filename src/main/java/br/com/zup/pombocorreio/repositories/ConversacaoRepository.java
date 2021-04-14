@@ -5,6 +5,9 @@ import br.com.zup.pombocorreio.models.Contato;
 import br.com.zup.pombocorreio.models.Conversacao;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 public interface ConversacaoRepository extends CrudRepository<Conversacao, Long> {
-    Conversacao existsByContaAndContato(Conta conta, Contato contato);
+    Boolean existsByContaAndContato(Conta conta, Contato contato);
+    Optional<Conversacao> findByContaAndContato(Conta conta, Contato contato);
 }

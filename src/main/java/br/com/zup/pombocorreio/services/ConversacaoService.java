@@ -7,6 +7,8 @@ import br.com.zup.pombocorreio.repositories.ConversacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ConversacaoService {
 
@@ -27,5 +29,15 @@ public class ConversacaoService {
         conversacao.setConta(conta);
         conversacao.setContato(contato);
         return conversacaoRepository.save(conversacao);
+    }
+
+    public Conversacao procurarConversacaoPorContaEContato(Conta conta, Contato contato) {
+        Optional<Conversacao> optionalConversacao = conversacaoRepository.findByContaAndContato(conta, contato);
+
+        if (optionalConversacao.isEmpty()) {
+            throw new RuntimeException("Nenhuma conversa foi encontrar com a conta e contato informado!");
+        }
+
+        return optionalConversacao.get();
     }
 }

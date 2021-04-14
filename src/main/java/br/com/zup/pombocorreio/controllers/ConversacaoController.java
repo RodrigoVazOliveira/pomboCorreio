@@ -1,7 +1,9 @@
 package br.com.zup.pombocorreio.controllers;
 
 import br.com.zup.pombocorreio.dtos.conversacao.IniciarConversacaoDTO;
+import br.com.zup.pombocorreio.dtos.conversacao.SaidaConversacaoComMensagemDTO;
 import br.com.zup.pombocorreio.dtos.conversacao.SaidaNovaConversacaoDTO;
+import br.com.zup.pombocorreio.dtos.mensagem.CadastrarMensagemDTO;
 import br.com.zup.pombocorreio.models.Conversacao;
 import br.com.zup.pombocorreio.services.ConversacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,20 @@ public class ConversacaoController {
         try {
             return SaidaNovaConversacaoDTO.converterListaModeloParaListaDto(
                     conversacaoService.obterTodasConversasPorIdDaConta(id)
+            );
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+
+    @PutMapping("{id}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public SaidaConversacaoComMensagemDTO enviarMensagem(@PathVariable Long id,
+                                                         @RequestBody @Valid CadastrarMensagemDTO cadastrarMensagemDTO) {
+        try {
+            return SaidaConversacaoComMensagemDTO.converterModeloParaDto(
+                    conversacaoService.enviarMensagem(id, cadastrarMensagemDTO.converterDtoParaModelo())
             );
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());

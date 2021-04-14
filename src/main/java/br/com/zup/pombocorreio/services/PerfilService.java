@@ -41,7 +41,7 @@ public class PerfilService {
         Optional<Perfil> optionalPerfil = perfilRepository.findById(id);
 
         if (optionalPerfil.isEmpty()) {
-            throw new RuntimeException("Não foi encontrado um perfil com o id " + id);
+            throw new PerfilNaoExisteExcecao("Não foi encontrado um perfil com o id " + id);
         }
 
         return optionalPerfil.get();

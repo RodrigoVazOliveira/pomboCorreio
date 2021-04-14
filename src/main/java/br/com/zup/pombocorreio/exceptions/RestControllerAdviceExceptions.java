@@ -42,7 +42,7 @@ public class RestControllerAdviceExceptions  extends ResponseEntityExceptionHand
 
     @ExceptionHandler({PerfilNaoExisteExcecao.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public PerfilNaoExisteExcecao perfilNaoExisteExcecao(PerfilNaoExisteExcecao ex) {
+    public ValidacaoDeSemArgsException perfilNaoExisteExcecao(PerfilNaoExisteExcecao ex) {
         ValidacaoDeSemArgsException validacaoDeSemArgsException = new ValidacaoDeSemArgsException(
             ex.getTipoDeErro(),
             ex.getStatus(),

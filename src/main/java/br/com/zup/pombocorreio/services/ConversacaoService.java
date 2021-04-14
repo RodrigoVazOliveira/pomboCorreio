@@ -7,7 +7,6 @@ import br.com.zup.pombocorreio.repositories.ConversacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +42,10 @@ public class ConversacaoService {
         }
 
         return optionalConversacao.get();
+    }
+
+    public Iterable<Conversacao> obterTodasConversasPorIdDaConta(Long id) {
+        Conta contaAntiga = contaService.procurarContaPorId(id);
+        return conversacaoRepository.findByConta(contaAntiga);
     }
 }

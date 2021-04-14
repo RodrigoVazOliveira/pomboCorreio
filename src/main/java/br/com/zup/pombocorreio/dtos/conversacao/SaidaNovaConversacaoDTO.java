@@ -2,6 +2,9 @@ package br.com.zup.pombocorreio.dtos.conversacao;
 
 import br.com.zup.pombocorreio.models.Conversacao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SaidaNovaConversacaoDTO {
 
     private Long idConversacao;
@@ -59,5 +62,16 @@ public class SaidaNovaConversacaoDTO {
         dto.setFotoContato(conversacao.getContato().getPerfil().getFoto());
 
         return dto;
+    }
+
+    public static Iterable<SaidaNovaConversacaoDTO> converterListaModeloParaListaDto(
+            Iterable<Conversacao> conversacaos) {
+        List<SaidaNovaConversacaoDTO> dtos = new ArrayList<>();
+
+        for (Conversacao conversacao : conversacaos) {
+            dtos.add(converterModeloParaDto(conversacao));
+        }
+
+        return dtos;
     }
 }

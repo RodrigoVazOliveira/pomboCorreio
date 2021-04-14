@@ -36,4 +36,16 @@ public class ConversacaoController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @GetMapping("{id}/")
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<SaidaNovaConversacaoDTO> obterConversasPorIdDaConta(@PathVariable Long id) {
+        try {
+            return SaidaNovaConversacaoDTO.converterListaModeloParaListaDto(
+                    conversacaoService.obterTodasConversasPorIdDaConta(id)
+            );
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
 }

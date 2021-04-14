@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ConversacaoRepository extends CrudRepository<Conversacao, Long> {
     Boolean existsByContaAndContato(Conta conta, Contato contato);
     Optional<Conversacao> findByContaAndContato(Conta conta, Contato contato);
+    Iterable<Conversacao> findByConta(Conta conta);
 }

@@ -15,12 +15,17 @@ public class ConversacaoService {
     private final ConversacaoRepository conversacaoRepository;
     private final ContaService contaService;
     private final ContatoService contatoService;
+    private final MensagemService mensagemService;
 
     @Autowired
-    public ConversacaoService(ConversacaoRepository conversacaoRepository, ContaService contaService, ContatoService contatoService) {
+    public ConversacaoService(ConversacaoRepository conversacaoRepository,
+                              ContaService contaService,
+                              ContatoService contatoService,
+                              MensagemService mensagemService) {
         this.conversacaoRepository = conversacaoRepository;
         this.contaService = contaService;
         this.contatoService = contatoService;
+        this.mensagemService = mensagemService;
     }
 
     public Conversacao gravarNovaConversacao(Conversacao conversacao) {
@@ -47,5 +52,15 @@ public class ConversacaoService {
     public Iterable<Conversacao> obterTodasConversasPorIdDaConta(Long id) {
         Conta contaAntiga = contaService.procurarContaPorId(id);
         return conversacaoRepository.findByConta(contaAntiga);
+    }
+
+    public Conversacao procurarConversacaoPorId(Long id) {
+        Optional<Conversacao> optionalConversacao = conversacaoRepository.findById(id);
+
+        if (optionalConversacao.isEmpty()) {
+            throw new RuntimeException("Não existe uma conversa como id " + id);
+        }
+
+        return optionalConversacao.get();
     }
 }

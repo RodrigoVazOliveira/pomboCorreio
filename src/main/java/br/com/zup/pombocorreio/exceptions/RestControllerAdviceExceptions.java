@@ -1,5 +1,6 @@
 package br.com.zup.pombocorreio.exceptions;
 
+import br.com.zup.pombocorreio.exceptions.conta.ContaJaExisteExcecao;
 import br.com.zup.pombocorreio.exceptions.perfil.PerfilNaoExisteExcecao;
 import br.com.zup.pombocorreio.exceptions.validacao.CampoExcecao;
 import br.com.zup.pombocorreio.exceptions.validacao.ValidacaoDeArgumentoException;
@@ -48,6 +49,18 @@ public class RestControllerAdviceExceptions  extends ResponseEntityExceptionHand
             ex.getStatus(),
             ex.getDescricaoStatus(),
             ex.getMessage()
+        );
+        return validacaoDeSemArgsException;
+    }
+
+    @ExceptionHandler({ContaJaExisteExcecao.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ValidacaoDeSemArgsException contaJaExisteExcecao(ContaJaExisteExcecao ex) {
+        ValidacaoDeSemArgsException validacaoDeSemArgsException = new ValidacaoDeSemArgsException(
+                ex.getTipoDeErro(),
+                ex.getStatus(),
+                ex.getDescricaoStatus(),
+                ex.getMessage()
         );
         return validacaoDeSemArgsException;
     }

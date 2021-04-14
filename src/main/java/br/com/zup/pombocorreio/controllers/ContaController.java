@@ -8,7 +8,6 @@ import br.com.zup.pombocorreio.services.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -27,46 +26,30 @@ public class ContaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public SaidaCadastrarContaDTO gravarNovaConta(@RequestBody @Valid CadastrarContaDTO cadastrarContaDTO) {
-        try {
-            Conta conta = contaService.gravarNovaConta(cadastrarContaDTO.converterDtoParaModelo());
-            return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        Conta conta = contaService.gravarNovaConta(cadastrarContaDTO.converterDtoParaModelo());
+        return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public SaidaCadastrarContaDTO procurarContaPorTelefone(@RequestParam(name = "telefone") String telefone) {
-        try {
-            Conta conta = contaService.procurarContaPorNumeroTelefone(telefone);
-            return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
-        }catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.OK, e.getMessage());
-        }
+        Conta conta = contaService.procurarContaPorNumeroTelefone(telefone);
+        return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
     }
 
     @PutMapping("{id}/")
     @ResponseStatus(HttpStatus.CREATED)
     public SaidaCadastrarContaDTO atualizarContaCompleta(@PathVariable Long id, @RequestBody AtualizarContaDTO atualizarContaDTO) {
-        try {
-            atualizarContaDTO.setId(id);
-            Conta conta = contaService.atualizarConta(atualizarContaDTO.converterDtoParaModelo());
-            return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        atualizarContaDTO.setId(id);
+        Conta conta = contaService.atualizarConta(atualizarContaDTO.converterDtoParaModelo());
+        return SaidaCadastrarContaDTO.converterModeloParaDto(conta);
     }
 
     @PatchMapping("{id}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public SaidaCadastrarContaDTO ativarOuDesativarConta(@PathVariable(name = "id") Long idConta) {
-        try {
-            Conta conta  = new Conta();
-            conta.setId(idConta);
-            return SaidaCadastrarContaDTO.converterModeloParaDto(contaService.ativarOuDesativarConta(conta));
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        Conta conta  = new Conta();
+        conta.setId(idConta);
+        return SaidaCadastrarContaDTO.converterModeloParaDto(contaService.ativarOuDesativarConta(conta));
     }
 }

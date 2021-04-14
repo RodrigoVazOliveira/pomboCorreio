@@ -1,12 +1,16 @@
 package br.com.zup.pombocorreio.exceptions;
 
+import br.com.zup.pombocorreio.exceptions.perfil.PerfilNaoExisteExcecao;
 import br.com.zup.pombocorreio.exceptions.validacao.CampoExcecao;
 import br.com.zup.pombocorreio.exceptions.validacao.ValidacaoDeArgumentoException;
+import br.com.zup.pombocorreio.exceptions.validacao.ValidacaoDeSemArgsException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -20,7 +24,7 @@ public class RestControllerAdviceExceptions  extends ResponseEntityExceptionHand
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ValidacaoDeArgumentoException validacaoDeArgumentoException = new ValidacaoDeArgumentoException(
-            "validação de cmapos",
+            "validação de campos",
             status.value(),
             status.getReasonPhrase(),
             obterValidacaoDeCampos(ex)
@@ -34,5 +38,17 @@ public class RestControllerAdviceExceptions  extends ResponseEntityExceptionHand
             campoExcecaos.add(new CampoExcecao(fieldError.getField(), fieldError.getDefaultMessage()));
         }
         return campoExcecaos;
+    }
+
+    @ExceptionHandler({PerfilNaoExisteExcecao.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public PerfilNaoExisteExcecao perfilNaoExisteExcecao(PerfilNaoExisteExcecao ex) {
+        ValidacaoDeSemArgsException validacaoDeSemArgsException = new ValidacaoDeSemArgsException(
+            ex.getTipoDeErro(),
+            ex.getStatus(),
+            ex.getDescricaoStatus(),
+            ex.getMessage()
+        );
+        return validacaoDeSemArgsException;
     }
 }

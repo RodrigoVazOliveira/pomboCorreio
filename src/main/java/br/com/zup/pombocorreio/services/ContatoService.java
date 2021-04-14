@@ -64,4 +64,16 @@ public class ContatoService {
         Contato contato = procurarContatoPorId(idContato);
         contatoRepository.delete(contato);
     }
+
+    public void bloquearOuDesbloquearContato(Long id) {
+        Contato contato = procurarContatoPorId(id);
+
+        if (contato.getBloqueio().equals(true)) {
+            contato.setBloqueio(false);
+        } else {
+            contato.setBloqueio(true);
+        }
+
+        contatoRepository.save(contato);
+    }
 }

@@ -59,14 +59,14 @@ public class ContaController {
     }
 
     @PatchMapping("{id}/")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public SaidaCadastrarContaDTO ativarOuDesativarConta(@PathVariable(name = "id") Long idConta) {
         try {
             Conta conta  = new Conta();
-            conta.setId(id);
+            conta.setId(idConta);
             return SaidaCadastrarContaDTO.converterModeloParaDto(contaService.ativarOuDesativarConta(conta));
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
-
 }

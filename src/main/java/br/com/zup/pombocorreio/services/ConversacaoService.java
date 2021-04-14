@@ -3,6 +3,7 @@ package br.com.zup.pombocorreio.services;
 import br.com.zup.pombocorreio.models.Conta;
 import br.com.zup.pombocorreio.models.Contato;
 import br.com.zup.pombocorreio.models.Conversacao;
+import br.com.zup.pombocorreio.models.Mensagem;
 import br.com.zup.pombocorreio.repositories.ConversacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +63,12 @@ public class ConversacaoService {
         }
 
         return optionalConversacao.get();
+    }
+
+    public Conversacao enviarMensagem(Long id, Mensagem mensagem) {
+        Conversacao conversacao = procurarConversacaoPorId(id);
+        Mensagem novaMensagem = mensagemService.gravarNovaMensagem(mensagem);
+        conversacao.getMensagems().add(novaMensagem);
+        return conversacaoRepository.save(conversacao);
     }
 }

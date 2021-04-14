@@ -7,7 +7,6 @@ import br.com.zup.pombocorreio.repositories.ContatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,5 +62,17 @@ public class ContatoService {
         contaService.removerContatoDaConta(idConta, idContato);
         Contato contato = procurarContatoPorId(idContato);
         contatoRepository.delete(contato);
+    }
+
+    public void bloquearOuDesbloquearContato(Long id) {
+        Contato contato = procurarContatoPorId(id);
+
+        if (contato.getBloqueio().equals(true)) {
+            contato.setBloqueio(false);
+        } else {
+            contato.setBloqueio(true);
+        }
+
+        contatoRepository.save(contato);
     }
 }

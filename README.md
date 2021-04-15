@@ -2,6 +2,12 @@
 
 ---
 
+![spring boot 2.4.4](https://img.shields.io/badge/SpringBoot-2.4.4-green)
+![Java 11](https://img.shields.io/badge/Java-11-green)
+![MySQL](https://img.shields.io/badge/MySQL-white)
+
+---
+
 ### Objetivo:
     
     O projeto é um POC para uso do Spring Boot com banco de dados mariaDB.

@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### remover
+!/src/main/resources/application-prod.properties
+/target/
